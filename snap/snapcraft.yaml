@@ -8,7 +8,7 @@ description: |
   Another goal is to have excellent developer tooling--including a language server--so that less knowledge of the format is required. Hopefully this will increase adoption of cool advanced features like GtkExpression.
 
 grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
+confinement: classic # use 'strict' once you have the right plugs and slots
 architectures:
   - build-on: amd64
   - build-on: arm64
@@ -22,10 +22,8 @@ parts:
     meson-parameters:
       - --prefix=/usr
     
-    
 apps:
   blueprint-compiler:
     command: usr/bin/blueprint-compiler
-    extensions: [ gnome ]
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
