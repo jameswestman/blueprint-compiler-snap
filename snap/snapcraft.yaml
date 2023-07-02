@@ -51,7 +51,7 @@ parts:
     build-packages:
       - python3-pip
   blueprint-compiler:
-    after: [ meson ]
+    after: [ meson-deps ]
     # See 'snapcraft plugins'
     plugin: meson
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
