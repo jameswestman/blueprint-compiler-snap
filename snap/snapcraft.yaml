@@ -1,6 +1,6 @@
 name: blueprint-compiler 
 base: core22 
-version: '0.8.1' 
+version: '0.10.0' 
 summary: A markup language for GTK user interface files. 
 description: |
   GtkBuilder XML format is quite verbose, and many app developers don't like using WYSIWYG editors for creating UIs. Blueprint files are intended to be a concise, easy-to-read format that makes it easier to create and edit GTK UIs.
