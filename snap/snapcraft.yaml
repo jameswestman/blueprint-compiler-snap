@@ -20,7 +20,9 @@ architectures:
 parts:
   launcher:
     plugin: dump
-    source: launcher
+    source: .
+    override-build: |
+      cp launcher $CRAFT_PART_INSTALL/
 
   ninja:
     plugin: nil
