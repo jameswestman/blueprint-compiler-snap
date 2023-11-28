@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -n "$SNAP" ]; then
-  export GI_TYPELIB_PATH=/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
-  export LD_LIBRARY_PATH=/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib:/usr/lib/$CRAFT_ARCH_TRIPLET:/usr/lib
+if [ -z "$SNAP" ]; then
+  uset GI_TYPELIB_PATH
+  unset LD_LIBRARY_PATH
 else
-  echo 'Running in local machine'
+  echo 'Running in snap environment'
 fi
 
 exec "$SNAP/usr/bin/blueprint-compiler"
