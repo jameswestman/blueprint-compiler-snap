@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$SNAP" ]; then
+if [ -z "$CRAFT_PROJECT_NAME" ]; then
   unset GI_TYPELIB_PATH
   unset LD_LIBRARY_PATH
 else
