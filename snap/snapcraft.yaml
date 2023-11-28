@@ -18,6 +18,10 @@ architectures:
   - build-on: arm64
   - build-on: armhf
 parts:
+  launcher:
+    plugin: dump
+    source: launcher
+
   ninja:
     plugin: nil
     source: https://github.com/ninja-build/ninja.git
@@ -67,7 +71,7 @@ parts:
  
 apps:
   blueprint-compiler:
-    command: usr/bin/blueprint-compiler
+    command: launcher
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
       GI_TYPELIB_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
