@@ -1,6 +1,6 @@
 name: blueprint-compiler 
 base: core22 
-version: '0.10.0' 
+adopt-info: blueprint-compiler 
 summary: A markup language for GTK user interface files. 
 website: https://jwestman.pages.gitlab.gnome.org/blueprint-compiler
 source-code: https://gitlab.gnome.org/jwestman/blueprint-compiler
@@ -67,8 +67,11 @@ parts:
     after: [ meson-deps ]    
     plugin: meson
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-    source-tag: 'v$SNAPCRAFT_PROJECT_VERSION'
+    source-tag: 'v0.10.0'
     source-depth: 1
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --abbrev=0 --tags | cut -c 2-)
     meson-parameters:
       - --prefix=/usr
 
