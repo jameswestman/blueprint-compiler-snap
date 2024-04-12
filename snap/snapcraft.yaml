@@ -27,7 +27,7 @@ parts:
   ninja:
     plugin: nil
     source: https://github.com/ninja-build/ninja.git
-    source-tag: 'v1.11.1'
+    source-tag: 'v1.12.0'
     source-depth: 1
     override-build: |
       rm -rf build
