@@ -1,7 +1,7 @@
-name: blueprint-compiler 
-base: core22 
-adopt-info: blueprint-compiler 
-summary: A markup language for GTK user interface files. 
+name: blueprint-compiler
+base: core22
+adopt-info: blueprint-compiler
+summary: A markup language for GTK user interface files.
 website: https://jwestman.pages.gitlab.gnome.org/blueprint-compiler
 source-code: https://gitlab.gnome.org/jwestman/blueprint-compiler
 issues: https://github.com/jameswestman/blueprint-compiler-snap/issues
@@ -11,12 +11,13 @@ description: |
   Internally, it compiles to GtkBuilder XML as part of an app's build system. It adds no new features, just makes the features that exist more accessible.
   Another goal is to have excellent developer tooling--including a language server--so that less knowledge of the format is required. Hopefully this will increase adoption of cool advanced features like GtkExpression.
 
-grade: stable 
+grade: stable
 confinement: classic
 architectures:
   - build-on: amd64
   - build-on: arm64
   - build-on: armhf
+
 parts:
   launcher:
     plugin: dump
@@ -27,7 +28,7 @@ parts:
   ninja:
     plugin: nil
     source: https://github.com/ninja-build/ninja.git
-    source-tag: 'v1.12.0'
+    source-tag: "v1.12.0"
     source-depth: 1
     override-build: |
       rm -rf build
@@ -43,13 +44,13 @@ parts:
       mv ninja $CRAFT_PART_INSTALL/usr/bin/
     build-packages:
       - python3
-    override-prime: ''
+    override-prime: ""
 
   meson-deps:
-    after: [ ninja ]
+    after: [ninja]
     plugin: nil
     source: https://github.com/mesonbuild/meson.git
-    source-tag: '1.4.0rc1'
+    source-tag: "1.4.0rc1"
     source-depth: 1
     override-build: |
       python3 -m pip install .
@@ -61,24 +62,28 @@ parts:
       sed -i "s%^#!/usr/bin/python3$%#!/usr/bin/env python3%g" $CRAFT_PART_INSTALL/usr/bin/meson
     build-packages:
       - python3-pip
-    override-prime: ''
+    override-prime: ""
 
   blueprint-compiler:
-    after: [ meson-deps ]    
+    after: [meson-deps]
     plugin: meson
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-    source-tag: 'v0.12.0'
+    source-tag: "v0.10.0"
     source-depth: 1
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --abbrev=0 --tags | cut -c 2-)
     meson-parameters:
-      - --prefix=/usr
+      - --prefix=/snap/blueprint-compiler/current/usr
+    organize:
+      snap/blueprint-compiler/current: .
+    prime:
+      - -snap/blueprint-compiler
 
 apps:
   blueprint-compiler:
     command: launcher
     environment:
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
-      GI_TYPELIB_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
-      LD_LIBRARY_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib:/usr/lib/$CRAFT_ARCH_TRIPLET:/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$LD_LIBRARY_PATH
+      # PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
+      # GI_TYPELIB_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
+      # LD_LIBRARY_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib:/usr/lib/$CRAFT_ARCH_TRIPLET:/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$LD_LIBRARY_PATH
