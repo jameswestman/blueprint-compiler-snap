@@ -25,39 +25,38 @@ parts:
     override-build: |
       cp launcher $CRAFT_PART_INSTALL/
 
-  ninja:
-    plugin: nil
-    source: https://github.com/ninja-build/ninja.git
-    source-tag: "v1.12.0"
-    source-depth: 1
-    override-build: |
-      rm -rf build
-      rm -f ninja
-      rm -f ninja_bootstrap
-      sed -i 's_^#!/usr/bin/env python$_#!/usr/bin/env python3_g' configure.py
-      ./configure.py --bootstrap
-      mv ninja ninja_bootstrap
-      rm -rf build
-      ./ninja_bootstrap
-      rm -f ninja_bootstrap
-      mkdir -p $CRAFT_PART_INSTALL/usr/bin
-      mv ninja $CRAFT_PART_INSTALL/usr/bin/
-    build-packages:
-      - python3
-    override-prime: ""
+  # ninja:
+  #   plugin: nil
+  #   source: https://github.com/ninja-build/ninja.git
+  #   source-tag: "v1.12.0"
+  #   source-depth: 1
+  #   override-build: |
+  #     rm -rf build
+  #     rm -f ninja
+  #     rm -f ninja_bootstrap
+  #     sed -i 's_^#!/usr/bin/env python$_#!/usr/bin/env python3_g' configure.py
+  #     ./configure.py --bootstrap
+  #     mv ninja ninja_bootstrap
+  #     rm -rf build
+  #     ./ninja_bootstrap
+  #     rm -f ninja_bootstrap
+  #     mkdir -p $CRAFT_PART_INSTALL/usr/bin
+  #     mv ninja $CRAFT_PART_INSTALL/usr/bin/
+  #   build-packages:
+  #     - python3
+  #   override-prime: ""
 
-  meson-deps:
-    after: [ninja]
-    plugin: python
-    source: https://github.com/mesonbuild/meson.git
-    source-tag: "1.4.0"
-    source-depth: 1
-    build-packages:
-      - python3-pip
-    override-prime: ""
+  # meson-deps:
+  #   after: [ninja]
+  #   plugin: python
+  #   source: https://github.com/mesonbuild/meson.git
+  #   source-tag: "1.4.0"
+  #   source-depth: 1
+  #   build-packages:
+  #     - python3-pip
+  #   override-prime: ""
 
   blueprint-compiler:
-    after: [meson-deps]
     plugin: meson
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
     source-tag: 'v0.12.0'
@@ -69,6 +68,8 @@ parts:
       - --prefix=/snap/blueprint-compiler/current/usr
     organize:
       snap/blueprint-compiler/current: .
+    build-packages:
+      - meson
     prime:
       - -snap/blueprint-compiler
 
