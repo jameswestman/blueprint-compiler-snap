@@ -52,6 +52,8 @@ parts:
     source: https://github.com/mesonbuild/meson.git
     source-tag: "1.4.0"
     source-depth: 1
+    build-packages:
+      - python3-pip
     override-prime: ""
 
   blueprint-compiler:
