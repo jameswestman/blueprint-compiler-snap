@@ -19,11 +19,11 @@ platforms:
   armhf:
 
 parts:
-  launcher:
-    plugin: dump
-    source: .
-    override-build: |
-      cp launcher $CRAFT_PART_INSTALL/
+  # launcher:
+  #   plugin: dump
+  #   source: .
+  #   override-build: |
+  #     cp launcher $CRAFT_PART_INSTALL/
 
   # ninja:
   #   plugin: nil
@@ -75,7 +75,7 @@ parts:
 
 apps:
   blueprint-compiler:
-    command: launcher
+    command: usr/bin/blueprint-compiler
     environment:
-      GI_TYPELIB_PATH: /snap/gnome-46-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-46-2404-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/usr/lib/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:$SNAP/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
-      LD_LIBRARY_PATH: /snap/gnome-46-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-46-2404-sdk/current/usr/lib:/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib:/usr/lib/$CRAFT_ARCH_TRIPLET:/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$LD_LIBRARY_PATH
+      GI_TYPELIB_PATH: /snap/gnome-46-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/snap/gnome-46-2404-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0:/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
+      LD_LIBRARY_PATH: /snap/gnome-46-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-46-2404-sdk/current/usr/lib:/usr/lib/$CRAFT_ARCH_TRIPLET:/usr/lib:$LD_LIBRARY_PATH
