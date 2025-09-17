@@ -24,15 +24,18 @@ parts:
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
     source-tag: 'v0.18.0'
     source-depth: 1
+    build-attributes: [enable-patchelf]
     override-pull: |
       craftctl default
-      craftctl set version=$(git describe --abbrev=0 --tags | cut -c 2-)
+      craftctl set version=$(git describe --abbrev=0 --tags)
     meson-parameters:
       - --prefix=/snap/blueprint-compiler/current/usr
     organize:
       snap/blueprint-compiler/current: .
     build-packages:
       - meson
+    stage-packages:
+      - python3-gi
     prime:
       - -snap/blueprint-compiler
 
@@ -40,5 +43,5 @@ apps:
   blueprint-compiler:
     command: usr/bin/blueprint-compiler
     environment:
-      GI_TYPELIB_PATH: /snap/gnome-46-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/girepository-1.0:/snap/gnome-46-2404-sdk/current/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/girepository-1.0:/usr/lib/girepository-1.0:$GI_TYPELIB_PATH
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
+      GI_TYPELIB_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/girepository-1.0:$SNAP/usr/lib/girepository-1.0:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/girepository-1.0:/usr/lib/girepository-1.0${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages${PYTHONPATH:+:$PYTHONPATH}
