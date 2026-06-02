@@ -23,7 +23,7 @@ parts:
   blueprint-compiler:
     plugin: meson
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
-    source-tag: 'v0.18.0'
+    source-tag: 'v0.20.4'
     source-depth: 1
     override-pull: |
       craftctl default
